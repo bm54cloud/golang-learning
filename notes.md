@@ -161,10 +161,14 @@ switch city {
 - When returning multiple values, they need to be inside ()
     - Ex. `func printFirstnames(bookings2 []string)(bool, bool, string) {`
 
-**Shared Variables**
+**Package Level Variables**
 - You can define variables that are shared among multiple functions
-
-
+- Package level variables are defined at the top outside all functions
+- Package level variables cannot be created using `:=` syntax
+- Create package level variables with `var` syntax
+- If you make some of your variables package level variables, you do not need to pass them as parameters to your functions
+- Best practice is to define a variable as locally as possible, so if it is only being used within a single function, define it within that function, not at the package level
+ 
 
 
 

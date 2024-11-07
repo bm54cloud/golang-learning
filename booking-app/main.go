@@ -5,17 +5,19 @@ import (
 	"strings"
 )
 
+// Package level variables
+var conferenceName = "Go Conference"
+
+const conferenceTickets = 50   // conferenceTickets is a constant instead of a variable because it does not change throughout the application
+var remainingTickets uint = 50 // Explicitely define uint as the data type so that it does not accept negative numbers
+var bookings = [50]string{}
+var bookings2 []string
+
 // Use Println with variables and constants
 func main() {
-	conferenceName := "Go Conference"
-	// conferenceTickets is a constant instead of a variable because it does not change throughout the application
-	const conferenceTickets = 50
-	// Keep track of ticket count to know how many are still available
-	// Explicitely define uint as the data type so that it does not accept negative numbers
-	var remainingTickets uint = 50
-
-	// Can call another function to greet the users
-	greetUsers(conferenceName, conferenceTickets, remainingTickets)
+	// Move variables to package level so they can be shared
+	// Move greet users code to its own function and call itf
+	greetUsers()
 
 	// Or can have the greeting like this
 	fmt.Println("Welcome to the", conferenceName, "booking application!")
@@ -54,7 +56,6 @@ func main() {
 	remainingTickets = remainingTickets - userTickets
 
 	// Store a list of the inputted user names via an array of string type
-	var bookings = [50]string{}
 	bookings[0] = firstName + " " + lastName
 
 	fmt.Printf("The whole array: %v\n", bookings)
@@ -63,7 +64,6 @@ func main() {
 	fmt.Printf("The size of the array: %v\n", len(bookings))
 
 	// Example of how to do bookings as a slice
-	var bookings2 []string
 	bookings2 = append(bookings2, firstName+" "+lastName)
 
 	fmt.Printf("The whole slice: %v\n", bookings2)
@@ -81,12 +81,6 @@ func main() {
 
 // Use for loop to allow booking over and over again
 func forLoop() {
-	conferenceName := "Go Conference"
-	var remainingTickets uint = 50
-
-	// Declare the bookings2 slice
-	var bookings2 []string
-
 	// Move user input code to its own function
 	for remainingTickets > 0 {
 		firstName, lastName, email, userTickets := getUserInput()
@@ -96,11 +90,11 @@ func forLoop() {
 
 		if isValidName && isValidEmail && isValidUserTickets {
 			// Move code for booking to its own function
-			bookTicket(remainingTickets, userTickets, bookings2, firstName, lastName, email, conferenceName)
+			bookTicket(userTickets, firstName, lastName, email)
 
 			// Move firstNames section to its own function
 			// Call function to print firstNames
-			firstNames := getFirstNames(bookings2)
+			firstNames := getFirstNames()
 			fmt.Printf("The first names of bookings are: %v\n", firstNames)
 
 			// Check if there are any tickets left
@@ -133,13 +127,13 @@ func forLoop() {
 	}
 }
 
-func greetUsers(conferenceName string, conferenceTickets int, remainingTickets uint) {
+func greetUsers() {
 	fmt.Printf("Welcome to our %v booking application!\n", conferenceName)
 	fmt.Printf("We have a total of %v tickets and %v are still available.\n", conferenceTickets, remainingTickets)
 	fmt.Println("Get your tickets here to attend.")
 }
 
-func getFirstNames(bookings2 []string) []string {
+func getFirstNames() []string {
 	// Declare slice to only print firstName for privacy
 	firstNames := []string{}
 	for _, booking := range bookings2 {
@@ -180,7 +174,7 @@ func getUserInput() (string, string, string, uint) {
 	return firstName, lastName, email, userTickets
 }
 
-func bookTicket(remainingTickets uint, userTickets uint, bookings2 []string, firstName string, lastName string, email string, conferenceName string) {
+func bookTicket(userTickets uint, firstName string, lastName string, email string) {
 	remainingTickets = remainingTickets - userTickets
 
 	// Example of how to do bookings as a slice
