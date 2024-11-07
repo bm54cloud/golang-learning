@@ -79,6 +79,67 @@
     - Ex. Splits string "Nchole Smith" to slice ["Nicole", "Smith"]
 - Underscores `_` are blank identifiers that are used when you want to ignore a variable you don't want to use
 - Use a **break** statement to terminate the for loop. Once the for loop is broken, the application continues with the code right after the break (if there is any more code)
+- Use **continue** statement to skip the remainder of the body of a for loop and immediately retest the for loop's condition
+- Can use if-else condition statements within the for loop
+```
+if condition {
+    // Code to be executed if condition is true
+} else if condition {
+    // Code to be executed if condition is true
+} else {
+    // Code to be executed if both conditions are false
+}
+```
+- Can only have one "if" statement and one "else" statement, but can have as many "if else" statements in between those two as you want
+- You can use true/false conditionals in for loops
+- **Infinite Loop** - a loop that repeast endlessly as the condition is always **true**
+
+**If-else for User Input Validation**
+- `len()` returnes the length of a variable, according to its type
+    - For arrays and slices, the size of the list or number of elements is returned
+    - For strings, the number of characters is returned
+
+**Validation**
+- Use validation variables to validate that user input is acceptable
+- Can chain validations together with `&&`
+- Can use a logical `OR` operator if any of the conditions (not all) must be true for the whole expression to be true
+- `||` means `or`
+- Ex. `var isValidCity = city == "Singapore" || city == "London"`
+- Ex. `var isInvalidCity = city != "Singpaore" && city != "London"`
+- Can use a `NOT` operator to negate/reverse a boolean value
+    - Ex. `var isValidCity = city == "Singapore" || city == "London"`
+    - Ex. !isValidCity
+
+**Switch Statements**
+- Switch statement allows a variable to be tested for equality against a list of values
+- Default case handles the case if no match is found
+```
+switch city {
+    case "New York":
+        // Execute code for booking New York conference tickets
+    case "Singapore":
+        // Execute code for booking Singapore conference tickets
+    case "London", "Berlin":
+        // same logic for booking these two cities
+    case "Mexico City", "Hong Kong":
+        // same logic for booking these two cities
+    default:
+        fmt.Println("No valid city selected.")
+}
+```
+
+**Multiple Functions**
+- The first function is the main function, and there can be only one main function
+- The main function is the entrypoint for the application
+- All subsequent functions are only executed when called
+- You can call a function as many times as you want, thus functions can be used to reduce code duplication
+- Must call the function in main for it to run via `<function_name()>`
+
+**Parameters**
+- Information can be passed into functions as parameters
+- Parameters are also called arguments
+
+
 
 
 
