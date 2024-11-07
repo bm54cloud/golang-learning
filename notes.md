@@ -95,7 +95,7 @@ if condition {
 - **Infinite Loop** - a loop that repeast endlessly as the condition is always **true**
 
 **If-else for User Input Validation**
-- `len()` returnes the length of a variable, according to its type
+- `len()` returns the length of a variable, according to its type
     - For arrays and slices, the size of the list or number of elements is returned
     - For strings, the number of characters is returned
 
@@ -138,7 +138,31 @@ switch city {
 **Parameters**
 - Information can be passed into functions as parameters
 - Parameters are also called arguments
+- When creating a function that uses a previously defined variable, pass that variable into the function as a parameter and in the main function where the new function is called
+    - Call the new function in the main function via `<function_name()>`
+    - Ex. `greetUsers()`
+    - The greetUsers function uses some variables defined in the main function, so you must pass those variables as parameters both in the greetUsers() call and the greetUsers function
+    - Ex. `greetUsers(conferenceName, conferenceTickets, remainingTickets)`
+    - Ex. `func greetUsers(conferenceName, conferenceTickets, remainingTickets)`
 
+**Return**
+- Use **return** to return an output within a function that can be used in the main function or somewhere else
+- A function can take an input and return an output
+- Ex. `return firstNames` 
+- The output of this will get printed in a prior function
+- In Go you have to define the input and output parameters including its type explicitly
+- You need to tell the function what **data type** the return tool is returning, so add `[]string` as a parameter of the `printFirstNames` function, so it knows it is returning a list of strings
+- Ex. `func printFirstNames(bookings2 []string) []string {`
+- Notice the input parameters are within () and the output parameter is outside of () if returning a single value
+- When a function returns something to you, you can save that return as a variable
+    - Ex. `firstNames := getFirstNames(bookings)`
+    - Ex. `var firstNames = getFirstNames(bookings)`
+- Unlike most programming languages, Go allows you to return multiple values (not just one)
+- When returning multiple values, they need to be inside ()
+    - Ex. `func printFirstnames(bookings2 []string)(bool, bool, string) {`
+
+**Shared Variables**
+- You can define variables that are shared among multiple functions
 
 
 
