@@ -1,8 +1,9 @@
 package main
 
 import (
+	"booking-app/shared"
 	"fmt"
-	"strings"
+	"strconv"
 )
 
 // Package level variables
@@ -11,7 +12,11 @@ var conferenceName = "Go Conference"
 const conferenceTickets = 50   // conferenceTickets is a constant instead of a variable because it does not change throughout the application
 var remainingTickets uint = 50 // Explicitely define uint as the data type so that it does not accept negative numbers
 var bookings = [50]string{}
-var bookings2 []string
+
+// Change bookings list to a map instead of a list of strings
+// var bookings2 []string
+// Change bookings2 to an empty slice of maps and define the starting size (0)
+var bookings2 = make([]map[string]string, 0)
 
 // Use Println with variables and constants
 func main() {
@@ -63,8 +68,14 @@ func main() {
 	fmt.Printf("The type of the array: %T\n", bookings)
 	fmt.Printf("The size of the array: %v\n", len(bookings))
 
+	var userData = make(map[string]string)
+	userData["firstname"] = firstName
+	userData["lastName"] = lastName
+	userData["email"] = email
+	userData["numberOfTickets"] = strconv.FormatUint(uint64(userTickets), 10)
+
 	// Example of how to do bookings as a slice
-	bookings2 = append(bookings2, firstName+" "+lastName)
+	bookings2 = append(bookings2, userData)
 
 	fmt.Printf("The whole slice: %v\n", bookings2)
 	fmt.Printf("The first value: %v\n", bookings2[0])
@@ -86,7 +97,7 @@ func forLoop() {
 		firstName, lastName, email, userTickets := getUserInput()
 
 		// Move validation to its own function
-		isValidName, isValidEmail, isValidUserTickets := validateUserInput(firstName, lastName, email, userTickets, remainingTickets)
+		isValidName, isValidEmail, isValidUserTickets := shared.ValidateUserInput(firstName, lastName, email, userTickets, remainingTickets)
 
 		if isValidName && isValidEmail && isValidUserTickets {
 			// Move code for booking to its own function
@@ -137,20 +148,14 @@ func getFirstNames() []string {
 	// Declare slice to only print firstName for privacy
 	firstNames := []string{}
 	for _, booking := range bookings2 {
-		var names = strings.Fields(booking)
-		firstNames = append(firstNames, names[0])
+		firstNames = append(firstNames, booking["firstName"])
 	}
 	// Move the printf firstNames line to the main function and just return the firstNames here so that the main function (using func forLoop for this) has them
 	return firstNames // The output of this will get printed in a prior function
 	// You need to tell the function what data type the return tool is returning, so add []string as a parameter of the printFirstNames function, so it knows it is returning a list of strings
 }
 
-func validateUserInput(firstName string, lastName string, email string, userTickets uint, remainingTickets uint) (bool, bool, bool) {
-	var isValidName = len(firstName) >= 2 && len(lastName) >= 2
-	var isValidEmail = strings.Contains(email, "@")
-	var isValidUserTickets = userTickets > 0 && userTickets <= remainingTickets
-	return isValidName, isValidEmail, isValidUserTickets
-}
+// Move validateUserInput function to shared.go
 
 func getUserInput() (string, string, string, uint) {
 	var firstName string
@@ -178,7 +183,20 @@ func bookTicket(userTickets uint, firstName string, lastName string, email strin
 	remainingTickets = remainingTickets - userTickets
 
 	// Example of how to do bookings as a slice
-	bookings2 = append(bookings2, firstName+" "+lastName)
+
+	// Creat a map for a user
+	// First create a variable of an empty map
+	var userData = make(map[string]string)
+	userData["firstname"] = firstName
+	userData["lastName"] = lastName
+	userData["email"] = email
+	userData["numberOfTickets"] = strconv.FormatUint(uint64(userTickets), 10)
+
+	// Add the map to the bookins2 list
+	// Make the bookings2 variable into a slice of the map
+	// Copy the data type of the map (map[string]string)
+	bookings2 = append(bookings2, userData)
+	fmt.Printf("List of bookings is %v\n", bookings2)
 
 	fmt.Printf("Thank you %v %v for booking %v tickets. You will receive a confirmation email at %v\n", firstName, lastName, userTickets, email)
 	fmt.Printf("There are %v tickets remaining for the %v\n", remainingTickets, conferenceName)

@@ -81,15 +81,15 @@
 - Use a **break** statement to terminate the for loop. Once the for loop is broken, the application continues with the code right after the break (if there is any more code)
 - Use **continue** statement to skip the remainder of the body of a for loop and immediately retest the for loop's condition
 - Can use if-else condition statements within the for loop
-```
-if condition {
-    // Code to be executed if condition is true
-} else if condition {
-    // Code to be executed if condition is true
-} else {
-    // Code to be executed if both conditions are false
-}
-```
+    ```
+    if condition {
+        // Code to be executed if condition is true
+    } else if condition {
+        // Code to be executed if condition is true
+    } else {
+        // Code to be executed if both conditions are false
+    }
+    ```
 - Can only have one "if" statement and one "else" statement, but can have as many "if else" statements in between those two as you want
 - You can use true/false conditionals in for loops
 - **Infinite Loop** - a loop that repeast endlessly as the condition is always **true**
@@ -113,20 +113,20 @@ if condition {
 **Switch Statements**
 - Switch statement allows a variable to be tested for equality against a list of values
 - Default case handles the case if no match is found
-```
-switch city {
-    case "New York":
-        // Execute code for booking New York conference tickets
-    case "Singapore":
-        // Execute code for booking Singapore conference tickets
-    case "London", "Berlin":
-        // same logic for booking these two cities
-    case "Mexico City", "Hong Kong":
-        // same logic for booking these two cities
-    default:
-        fmt.Println("No valid city selected.")
-}
-```
+    ```
+    switch city {
+        case "New York":
+            // Execute code for booking New York conference tickets
+        case "Singapore":
+            // Execute code for booking Singapore conference tickets
+        case "London", "Berlin":
+            // same logic for booking these two cities
+        case "Mexico City", "Hong Kong":
+            // same logic for booking these two cities
+        default:
+            fmt.Println("No valid city selected.")
+    }
+    ```
 
 **Multiple Functions**
 - The first function is the main function, and there can be only one main function
@@ -134,6 +134,7 @@ switch city {
 - All subsequent functions are only executed when called
 - You can call a function as many times as you want, thus functions can be used to reduce code duplication
 - Must call the function in main for it to run via `<function_name()>`
+- Functions can be reused in your application by calling the function name
 
 **Parameters**
 - Information can be passed into functions as parameters
@@ -168,7 +169,61 @@ switch city {
 - Create package level variables with `var` syntax
 - If you make some of your variables package level variables, you do not need to pass them as parameters to your functions
 - Best practice is to define a variable as locally as possible, so if it is only being used within a single function, define it within that function, not at the package level
- 
+
+**Multiple Packages**
+- If your application is large, you may want to organize it with multiple packages
+- For example, if a booking application is available for each city, maybe each city's code is its own package (main.go, london.go, singapore.go, etc) and you put shared logic in a common package
+- Variables and functions defined outside any function can be accessed in all other files **within the same package**
+- When running `go run main.go` and using helper or shared functions, you also have to include where those shared functions live
+    - Ex. `go run main.go` will give you an error "undefined: <shared_function_name>
+    - The correct command would be `go run main.go <shared_function_file>`
+    - Ex. `go run main.go shared.go`
+- If you don't want to specify the shared file (you may have many), you can instead specify a folder that contains those files
+    - Ex. `go run .` will run all the files in the current folder
+- When you have multiple packages, you should have a folder for each package, and all the files pertaining to that package reside in the package's folder
+- If referencing a package within another package, you must import it into the package that wants to use it
+- The `go.mod` file defines the module (Ex. `booking-app`), which is the import path for all the packages in your application
+    - Ex. `import "booking-app/shared"`, NOT `import "shared"`
+- After importing the other package, you call it in the main package via `<package_name>.<function_name>`
+    - Ex. `shared.validateUserInput`
+- Also have to explicitly export the function that is in the other package
+- Exporting a function makes it available for use in other pacakges (It's not enough just to define the function in its own pacakge. You must also export it.)
+- Export a function by CAPITALIZING the first letter in the function
+    - Ex. `func ValidateUserInput` instead of `func validateUserInput`
+- You can export variables, constants, functions, and types all by simply capitalizing the first letter
+
+**Variable Scope**
+- Package, global, and local
+- Local 
+    - Declaration within a function can be used only within that function
+    - Declaration within a block (Ex. for, if-else) can only be used within that block
+- Package
+    - Declaration outside all functions can be used everywhere in the same package
+- Global
+    - Declaration with capitalized variable name can be used everywhere in the module
+
+**Maps**
+- Use a map data type to store key: value pairs
+- Ex. You want to only print the firstName and lastName user input, but you want to save the firstName, lastName, email, and userTickets input somewhere. Use a map to do this
+- Key: value pair would look like:
+    ```
+    firstName: "John"
+    lastName: "Doe"
+    email: "john@email.com"
+    userTickets: 5
+    ```
+- When creating maps, all keys have the same data type and all values have the same data type
+- Make an empty map with `var userData = make(map[string]string)`
+- In the above example, `[string]` is the data type of the key and `string` is the data type of the value
+- If you have a 2nd data type, like int or unit that you want to include in the map, you can convert it to a string using `strconv.FormatInt` or `strconv.FormatUint`
+    - Ex. `strconv.FormatUint(uint64(userTickets), 10)`
+    - This takes your uint value and formats it to a string with a decimal number
+    - The 10 is for base 10, which represents decimal numbers
+    - To save that value in the map, you would use `userData["numberOfTickets"] = strconv.FormatUint(uint64(userTickets), 10)`
+
+
+
+
 
 
 
