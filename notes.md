@@ -1,4 +1,4 @@
-**Go Basics**
+## Go Basics
 - Create main.go and place code in it
 - Must initialize the module with `go mod init <name_of_directory_with_main.go>`
     - `go mod init booking-app`
@@ -11,7 +11,7 @@
 <img src="booking-app/images/package.png" width="200" height="100">
 - Run `go run main.go` to execute the file
 
-**Variables** 
+## Variables 
 - Golang variables are mutable (can change) after they are declared
 - Use `var` to declare them
     `var x int = 10`
@@ -20,14 +20,15 @@
 - Use `=` for assigning values to variables
 - Use `==` for comparing of 2 values
 
-**Constants** 
+## Constants 
 - Golang constants cannot be changed once they are declared
 - Use `const` to declare them
     ```
     const pi = 3.14
     pi = 3.14159 // Not allowed
     ```
-**Date Types**
+
+## Date Types
 - In Golang, all values have data types
 - Each language has different data types that it supports
 - When declaring a variable, you need to tell the Go Compiler the data type
@@ -38,7 +39,7 @@
 - Integers can be whole numbers, decimals, or negative numbers, so you may want to explicitly define the data type when using these
 - Floating point types can contain a decimal component
 
-**User Input**
+## User Input
 - Can use fmt.Scan() to collect user input data and read formatted input
 - Must create a pointer to save the variable in
 - When defining variables, the variable value gets saved in memory on your computer
@@ -46,11 +47,11 @@
 - Use `&` before a variable to print the memory location of that variable
     - Ex. `fmt.Println(&remainingTickets)` would print the memory location (ex. 0xc00014098)
 
-**Number Compilations**
+## Number Compilations
 - When doing compilations with numbers, they must be of the same type
 - Ex. Cannot do a - b if a is type `int` and b is type `uint`
 
-**Arrays**
+## Arrays
 - When tracking multiple users' data, you want to save that in a list
 - Arrays in go have a fixed size
 - Use square [] brackets to define an array
@@ -59,7 +60,7 @@
 - Define the data type that the array will contain
 - Each array can contain only one data type
 
-**Slices**
+## Slices
 - What if you don't know the size of the array when you create it?
     - Create a list/array where you don't need to specify the size at the beginning
     - The array should automatically expand when new elements are added
@@ -70,7 +71,7 @@
 - Ex. `var bookings = []string{}`
 - Ex. `bookings := []string{}`
 
-**For Loops**
+## For Loops
 - Go only has the `for` loop
 - Declare variables inside a function but outside the for loop that you don't want to be reset by the loop
 - Iterate through a list
@@ -95,12 +96,12 @@
 - You can use true/false conditionals in for loops
 - **Infinite Loop** - a loop that repeast endlessly as the condition is always **true**
 
-**If-else for User Input Validation**
+## If-else for User Input Validation
 - `len()` returns the length of a variable, according to its type
     - For arrays and slices, the size of the list or number of elements is returned
     - For strings, the number of characters is returned
 
-**Validation**
+## Validation
 - Use validation variables to validate that user input is acceptable
 - Can chain validations together with `&&`
 - Can use a logical `OR` operator if any of the conditions (not all) must be true for the whole expression to be true
@@ -111,7 +112,7 @@
     - Ex. `var isValidCity = city == "Singapore" || city == "London"`
     - Ex. !isValidCity
 
-**Switch Statements**
+## Switch Statements
 - Switch statement allows a variable to be tested for equality against a list of values
 - Default case handles the case if no match is found
     ```
@@ -129,7 +130,7 @@
     }
     ```
 
-**Multiple Functions**
+## Multiple Functions
 - The first function is the main function, and there can be only one main function
 - The main function is the entrypoint for the application
 - All subsequent functions are only executed when called
@@ -139,7 +140,7 @@
 - When defining functions, you must include the parameter name and type
 - When calling functions, you only include the parameters (not types)
 
-**Parameters**
+## Parameters
 - Information can be passed into functions as parameters
 - Parameters are also called arguments
 - When creating a function that uses a previously defined variable, pass that variable into the function as a parameter and in the main function where the new function is called
@@ -149,7 +150,7 @@
     - Ex. `greetUsers(conferenceName, conferenceTickets, remainingTickets)`
     - Ex. `func greetUsers(conferenceName, conferenceTickets, remainingTickets)`
 
-**Return**
+## Return
 - Use **return** to return an output within a function that can be used in the main function or somewhere else
 - A function can take an input and return an output
 - Ex. `return firstNames` 
@@ -165,7 +166,7 @@
 - When returning multiple values, they need to be inside ()
     - Ex. `func printFirstnames(bookings2 []string)(bool, bool, string) {`
 
-**Package Level Variables**
+## Package Level Variables
 - You can define variables that are shared among multiple functions
 - Package level variables are defined at the top outside all functions
 - Package level variables cannot be created using `:=` syntax
@@ -173,7 +174,7 @@
 - If you make some of your variables package level variables, you do not need to pass them as parameters to your functions
 - Best practice is to define a variable as locally as possible, so if it is only being used within a single function, define it within that function, not at the package level
 
-**Multiple Packages**
+## Multiple Packages
 - If your application is large, you may want to organize it with multiple packages
 - For example, if a booking application is available for each city, maybe each city's code is its own package (main.go, london.go, singapore.go, etc) and you put shared logic in a common package
 - Variables and functions defined outside any function can be accessed in all other files **within the same package**
@@ -195,7 +196,7 @@
     - Ex. `func ValidateUserInput` instead of `func validateUserInput`
 - You can export variables, constants, functions, and types all by simply capitalizing the first letter
 
-**Variable Scope**
+## Variable Scope
 - Package, global, and local
 - Local 
     - Declaration within a function can be used only within that function
@@ -205,7 +206,7 @@
 - Global
     - Declaration with capitalized variable name can be used everywhere in the module
 
-**Maps**
+## Maps
 - Use a map data type to store key: value pairs
 - Ex. You want to only print the firstName and lastName user input, but you want to save the firstName, lastName, email, and userTickets input somewhere. Use a map to do this
 - Key: value pair would look like:
@@ -224,7 +225,7 @@
     - The 10 is for base 10, which represents decimal numbers
     - To save that value in the map, you would use `userData["numberOfTickets"] = strconv.FormatUint(uint64(userTickets), 10)`
 
-**Collect Different Data Types of Data**
+## Collect Different Data Types of Data
 - Example of different types of data:
     birthdate - Date - 01.02.1990
     newsletter - bool - true
@@ -232,17 +233,17 @@
 - Remember maps only allow a single data type
 - How can you save mixed data types?
 
-**Struct**
+Structs
 - Allows you to save different data types as key: value pairs
 - For each key in the struct, define the data type of the value
-```
-type UserData struct {
-    firstName string
-    lastName string
-    email string
-    numberOfTickets uint
-}
-```
+    ```
+    type UserData struct {
+        firstName string
+        lastName string
+        email string
+        numberOfTickets uint
+    }
+    ```
 
 - **Type** keyword creates a new type, with the name you specify (UserData)
 - You can then use the struct
@@ -257,7 +258,7 @@ type UserData struct {
     }
     ```
 
-**Concurrency**
+## Concurrency
 - fmt.Sprintf allows you to print a value and save it into a string variable
 - Concurrency allows you to make a program more efficient, by allowing multiple processes to run at the same time
 - Single thread execution - subsequent code is blocked until previous code completes
