@@ -1,3 +1,4 @@
+**Go Basics**
 - Create main.go and place code in it
 - Must initialize the module with `go mod init <name_of_directory_with_main.go>`
     - `go mod init booking-app`
@@ -135,6 +136,8 @@
 - You can call a function as many times as you want, thus functions can be used to reduce code duplication
 - Must call the function in main for it to run via `<function_name()>`
 - Functions can be reused in your application by calling the function name
+- When defining functions, you must include the parameter name and type
+- When calling functions, you only include the parameters (not types)
 
 **Parameters**
 - Information can be passed into functions as parameters
@@ -220,6 +223,72 @@
     - This takes your uint value and formats it to a string with a decimal number
     - The 10 is for base 10, which represents decimal numbers
     - To save that value in the map, you would use `userData["numberOfTickets"] = strconv.FormatUint(uint64(userTickets), 10)`
+
+**Collect Different Data Types of Data**
+- Example of different types of data:
+    birthdate - Date - 01.02.1990
+    newsletter - bool - true
+    attendanceNames - make([]map[string]string, 0) - slice of maps where each map holds the name of the attendant and email, like [{name:"Mike", email "mike@gmail.com"}, {name: "Sara", email: "sara@yahoo.com"}]
+- Remember maps only allow a single data type
+- How can you save mixed data types?
+
+**Struct**
+- Allows you to save different data types as key: value pairs
+- For each key in the struct, define the data type of the value
+```
+type UserData struct {
+    firstName string
+    lastName string
+    email string
+    numberOfTickets uint
+}
+```
+
+- **Type** keyword creates a new type, with the name you specify (UserData)
+- You can then use the struct
+    - Ex. `var bookings = make([]UserData, 0)`
+    - Ex. 
+    ```
+    var userData = UserData {
+        firstName: firstName,
+        lastName: lasName,
+        email: email,
+        numberOfTickets: userTickets,
+    }
+    ```
+
+**Concurrency**
+- fmt.Sprintf allows you to print a value and save it into a string variable
+- Concurrency allows you to make a program more efficient, by allowing multiple processes to run at the same time
+- Single thread execution - subsequent code is blocked until previous code completes
+- You can break out code from the main thread and execute it in a separate thread to make your code more efficient
+- Ex. If 20 users book the ticket at the same time, 20 new separate threads will break off to complete those bookings; once the break off thread is completed, the thread will be deleted
+- To make a function run with concurrent threads, simply put the `go` keyword in front of the function call; this starts a new goroutine
+- Ex. `go sendTicket(userTickets, firstName, lastName, email)`
+- You can take concurrency out of for lop by removing the loop and break, and then telling your function to wait until the go routine is completed
+- Use WaitGroup to wait for the launched goroutine to finish
+- WaitGroup is included in the sync package, which provides basic synchronization functionality
+- Ex. `var wg = sync.WaitGroup{}`
+- WaitGroup `Add` sets the number of goroutines to wait for (increases the counter by the provided number)
+- Ex. `wg.Add(1)` if you have 1 go routine defined
+- WaitGroup `Wait` needs to be executed at the end of the main function thread, and it waits for all the threads to be done before it exists the application
+- Ex. `wg.Wait()` placed at end of function with the go routine in it
+- WaitGroup `Done` decrements the WaitGroup counter by 1, and is called by the goroutine to indicate it is finished
+- Ex. If the go routine is for the sendTicket function (i.e. `go sendTicket(userTickets, firstName, lastName, email)`) then within the `func sendTicket`, add `wg.Done()` at the end of the function
+    ```
+    func sendTicket(userTickets uint, firstName string, lastName string, email string) {
+        fmt.Println("Processing...")
+        time.Sleep(10 * time.Second) // Sleep for 10 seconds
+        var ticket = fmt.Sprintf("%v tickets for %v %v\n", userTickets, firstName, lastName)
+        fmt.Println("#######") // Adds a visual divider
+        fmt.Printf("Sending ticket:\n %v \nto email address %v\n", ticket, email)
+        fmt.Println("#######")
+        wg.Done()
+    }
+    ```
+
+
+
 
 
 

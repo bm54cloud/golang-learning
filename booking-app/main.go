@@ -4,6 +4,7 @@ import (
 	"booking-app/shared"
 	"fmt"
 	"strconv"
+	"time"
 )
 
 // Package level variables
@@ -102,6 +103,7 @@ func forLoop() {
 		if isValidName && isValidEmail && isValidUserTickets {
 			// Move code for booking to its own function
 			bookTicket(userTickets, firstName, lastName, email)
+			go sendTicket(userTickets, firstName, lastName, email)
 
 			// Move firstNames section to its own function
 			// Call function to print firstNames
@@ -200,4 +202,13 @@ func bookTicket(userTickets uint, firstName string, lastName string, email strin
 
 	fmt.Printf("Thank you %v %v for booking %v tickets. You will receive a confirmation email at %v\n", firstName, lastName, userTickets, email)
 	fmt.Printf("There are %v tickets remaining for the %v\n", remainingTickets, conferenceName)
+}
+
+func sendTicket(userTickets uint, firstName string, lastName string, email string) {
+	fmt.Println("Processing...")
+	time.Sleep(10 * time.Second) // Sleep for 10 seconds
+	var ticket = fmt.Sprintf("%v tickets for %v %v\n", userTickets, firstName, lastName)
+	fmt.Println("#######") // Adds a visual divider
+	fmt.Printf("Sending ticket:\n %v \nto email address %v\n", ticket, email)
+	fmt.Println("#######")
 }
