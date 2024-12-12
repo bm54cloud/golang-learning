@@ -11,6 +11,44 @@
 <img src="booking-app/images/package.png" width="200" height="100">
 - Run `go run main.go` to execute the file
 
+## Package vs Module
+- A **package** is a collection of Go source files in the same directory that are compiled together
+- Packages are used to organize code and provide modularity and reusability within a codebase
+- Every Go file begins with a package declaration
+- Example packages:
+    ```
+    package logcolor
+
+    import "fmt"
+
+    func PrintGreen(message string) {
+        fmt.Println("\033[32m" + message + "\033[0m") // Print message in green
+    }
+    ```
+    ```
+    package main
+
+    import "path/to/logcolor"
+
+    func main() {
+        logcolor.PrintGreen("Hello, Go!")
+    }
+    ```
+- A **module** is defined by a go.mod file in its root directory
+- The go.mod file specifies the module path, required dependencies and their versions
+- A module can contain multiple packages
+- Example of go.mod:
+    ```
+    module gitlab.prod.dcs1.dso.mil/idcs/pipelines/dco-ci.git
+
+    go 1.20
+
+    require (
+        github.com/fatih/color v1.13.0
+    )
+    ```
+- In this case, the module is identified as **gitlab.prod.dcs1.dso.mil/idcs/pipelines/dco-ci.git**
+
 ## Variables 
 - Golang variables are mutable (can change) after they are declared
 - Use `var` to declare them
@@ -28,7 +66,7 @@
     pi = 3.14159 // Not allowed
     ```
 
-## Date Types
+## Data Types
 - In Golang, all values have data types
 - Each language has different data types that it supports
 - When declaring a variable, you need to tell the Go Compiler the data type
@@ -36,8 +74,10 @@
 - ex. `var userTickets int` indicates an integer type, just like `var userTickets = 34` indicated an integer type
 - Optionally, you may explicitly define the data types in the variable
     - Ex. `var conferenceName string = "Go Conference"` or `const conferenceTickets int = 50`
-- Integers can be whole numbers, decimals, or negative numbers, so you may want to explicitly define the data type when using these
+- Numbers can be whole numbers, decimals, or negative numbers, so you may want to explicitly define the data type when using these
 - Floating point types can contain a decimal component
+- Int types cannot contain a decimal point, but they can be whole numbers or negative numbers
+
 
 ## User Input
 - Can use fmt.Scan() to collect user input data and read formatted input
@@ -61,6 +101,7 @@
 - Each array can contain only one data type
 
 ## Slices
+- More commonly used than arrays
 - What if you don't know the size of the array when you create it?
     - Create a list/array where you don't need to specify the size at the beginning
     - The array should automatically expand when new elements are added
@@ -142,7 +183,8 @@
 
 ## Parameters
 - Information can be passed into functions as parameters
-- Parameters are also called arguments
+- Parameters are defined in the function signature (ex. `func greetUsers(name string)`)
+- Arguments are the actual values passed when calling the function (ex. in `greetUsers("John")`, "John" is the argument)
 - When creating a function that uses a previously defined variable, pass that variable into the function as a parameter and in the main function where the new function is called
     - Call the new function in the main function via `<function_name()>`
     - Ex. `greetUsers()`
@@ -164,7 +206,12 @@
     - Ex. `var firstNames = getFirstNames(bookings)`
 - Unlike most programming languages, Go allows you to return multiple values (not just one)
 - When returning multiple values, they need to be inside ()
-    - Ex. `func printFirstnames(bookings2 []string)(bool, bool, string) {`
+    ```
+    func printFirstnames(bookings2 []string) (bool, bool, string) {
+        if len(bookings2) == 0 {
+            return false, false, ""
+        }
+    ```
 
 ## Package Level Variables
 - You can define variables that are shared among multiple functions
