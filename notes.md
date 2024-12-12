@@ -334,7 +334,15 @@ Structs
         wg.Done()
     }
     ```
-
+## Error Printing
+- `t.Errorf` method of t will print out a message and fail the test, but continue subsequent tests
+- `f` stands for format, allowing you to build a string with values inserted into the placeholder values `%q`
+- `t.Fatalf` method of t will print a message and fail the test, but does not continue subsequent tests
+- `%v` = value in a default format; when printing structs, `%tv` adds field names
+- `%t` = true or false
+- `%q` = a double-quoted string safely escaped with Go syntax
+- `%s` = uninterpreted bytes of a string or slice
+- More at pkg.go.dev/fmt#hdr-printing
 
 
 
