@@ -39,7 +39,7 @@
 - A module can contain multiple packages
 - Example of go.mod:
     ```
-    module gitlab.prod.dcs1.dso.mil/idcs/pipelines/dco-ci.git
+    module gitlab.pipelines.git
 
     go 1.20
 
@@ -47,7 +47,7 @@
         github.com/fatih/color v1.13.0
     )
     ```
-- In this case, the module is identified as **gitlab.prod.dcs1.dso.mil/idcs/pipelines/dco-ci.git**
+- In this case, the module is identified as **gitlab.pipelines.git**
 
 ## Variables 
 - Golang variables are mutable (can change) after they are declared
